@@ -62,22 +62,37 @@
         /* --- Brands Section Styles --- */
         .brands-section {
             background-color: #0b0b1a;
-            padding: 2rem 1rem 1.5rem 1rem;
+            padding: 1rem 1rem 1.5rem 1rem;
             text-align: center;
             border-top: 1px solid #2a2a3a;
         }
 
-        .section-title {
-            font-size: 1.8rem;
+        .section-toggle-btn {
+            font-family: 'Segoe UI', sans-serif;
             font-weight: 700;
+            font-size: 1.2rem;
             color: #ccc;
-            margin-top: 0;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
+            background-color: transparent;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            transition: color 0.3s ease;
         }
-        .section-title:hover {
+        .section-toggle-btn:hover {
             color: #fff;
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+        .section-toggle-btn .fa-chevron-down {
+            transition: transform 0.4s ease;
+        }
+        .section-toggle-btn.active .fa-chevron-down {
+            transform: rotate(180deg);
         }
 
         .brands-container {
@@ -88,6 +103,15 @@
             gap: 2rem;
             max-width: 1000px;
             margin: 0 auto;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.7s ease, opacity 0.5s ease, padding-top 0.5s ease;
+        }
+        .brands-container.visible {
+            max-height: 1000px; /* Large enough value to fit all content */
+            opacity: 1;
+            padding-top: 2rem;
         }
 
         .brand-item {
@@ -344,8 +368,7 @@
         /* --- Mobile Adjustments --- */
         @media (max-width: 768px) {
             .portfolio-section {
-                min-height: 100vh; /* Increased height on mobile */
-                padding: 2rem 1rem; /* Adjusted padding for smaller screens */
+                min-height: 110vh; /* Increased height on mobile */
             }
             .brands-section {
                 padding: 1.5rem 1rem;
@@ -364,8 +387,11 @@
 
 <!-- Brands Section -->
 <section class="brands-section">
-    <h2 class="section-title">Brands που μας εμπιστεύτηκαν</h2>
-    <div class="brands-container">
+    <button class="section-toggle-btn" id="toggle-brands-btn">
+        Brands που μας εμπιστεύτηκαν
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="brands-container" id="brands-container">
         <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/9ba71560.jpg?v=1894d6d4" alt="Landing Minds Records"><small>Landing Minds Records</small></div>
         <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a4042465.png?v=1894d6d4" alt="Panik Records"><small>Panik Records</small></div>
         <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a5197dcf.jpg?v=1894d6d4" alt="On music"><small>On music</small></div>
@@ -469,6 +495,8 @@
         const portfolioGrid = document.getElementById('portfolio-grid');
         const modal = document.getElementById('video-modal');
         const modalCloseBtn = document.getElementById('modal-close-btn');
+        const toggleBrandsBtn = document.getElementById('toggle-brands-btn');
+        const brandsContainer = document.getElementById('brands-container');
         // Modal content containers
         const youtubePlayerContainer = document.getElementById('youtube-player-container');
         const videoIframe = document.getElementById('video-iframe');
@@ -559,6 +587,13 @@
                     const filterValue = this.dataset.filter;
                     renderPortfolioItems(filterValue);
                 });
+            });
+        }
+
+        if (toggleBrandsBtn && brandsContainer) {
+            toggleBrandsBtn.addEventListener('click', () => {
+                toggleBrandsBtn.classList.toggle('active');
+                brandsContainer.classList.toggle('visible');
             });
         }
 
