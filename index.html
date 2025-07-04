@@ -187,46 +187,46 @@
             transform: translateY(-1px);
         }
 
-        /* --- Portfolio Grid Styles --- */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
+        /* --- Portfolio List Styles --- */
+        .portfolio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 900px;
             margin: 0 auto;
-            transition: opacity 0.2s ease-in-out, height 0.3s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
         }
-        .portfolio-grid.fading {
+        .portfolio-list.fading {
             opacity: 0;
         }
 
         .portfolio-item {
-            position: relative;
-            display: block;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
             border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            aspect-ratio: 1 / 1; /* THE FIX: Ensures a square container */
         }
-        
         .portfolio-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 40px rgba(126, 87, 194, 0.4);
+            background-color: rgba(255,255,255,0.07);
+            border-color: #7e57c2;
         }
-        .portfolio-item img {
+
+        .portfolio-item-thumbnail {
+            position: relative;
+            flex-shrink: 0;
+            width: 120px;
+            height: 90px;
+        }
+        .portfolio-item-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            transition: filter 0.3s ease;
         }
-        .portfolio-item:hover img {
-            filter: brightness(0.6);
-        }
-
-        .portfolio-item .overlay {
+        .portfolio-item-thumbnail .overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -235,16 +235,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
         .portfolio-item:hover .overlay {
             opacity: 1;
         }
-        .portfolio-item .overlay i {
-            font-size: 4rem;
+        .portfolio-item-thumbnail .overlay i {
+            font-size: 2.5rem;
             color: rgba(255,255,255,0.8);
+        }
+        .portfolio-item-info {
+            padding: 1rem 1.5rem;
+            text-align: left;
+        }
+        .portfolio-item-title {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
         /* --- Video Modal Styles --- */
@@ -385,7 +394,6 @@
     <a href="https://pricing.visionsoundhub.gr/#zairok" class="nav-btn" target="_blank" rel="noopener noreferrer">Zairok (Manga)</a>
 </header>
 
-<!-- Brands Section -->
 <section class="brands-section">
     <button class="section-toggle-btn" id="toggle-brands-btn">
         Brands που μας εμπιστεύτηκαν
@@ -404,7 +412,6 @@
     </div>
 </section>
 
-<!-- Portfolio Section -->
 <section class="portfolio-section">
     <h2 class="section-title">Portfolio</h2>
     
@@ -416,20 +423,16 @@
         <button class="filter-btn" data-filter="veo3-ai">VEO3 AI</button>
     </div>
 
-    <div class="portfolio-grid" id="portfolio-grid">
-        <!-- Portfolio items will be dynamically added here by JavaScript -->
-    </div>
+    <div class="portfolio-list" id="portfolio-list">
+        </div>
 </section>
 
-<!-- Video Modal -->
 <div id="video-modal" class="modal-overlay">
     <div class="modal-content">
-        <span class="modal-close" id="modal-close-btn">&times;</span>
-        <!-- YouTube Player -->
+        <span class="modal-close" id="modal-close-btn">×</span>
         <div class="video-container" id="youtube-player-container">
             <iframe id="video-iframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         </div>
-        <!-- External Link Preview -->
         <div class="external-link-container" id="external-link-preview">
             <img id="external-preview-image" src="" alt="Video Preview">
             <a id="external-link-btn" href="#" target="_blank" class="btn-external">
@@ -446,58 +449,57 @@
         // --- DATA ---
         const portfolioData = [
             // Music Videos
-            { id: 1,  source: 'youtube', category: 'music-videos', videoId: 'UO853tdpiK0', title: 'Music Video 1' },
-            { id: 2,  source: 'youtube', category: 'music-videos', videoId: 'GgR1RQFVSO4', title: 'Music Video 2' },
-            { id: 3,  source: 'youtube', category: 'music-videos', videoId: '5G6uiwikQ_A', title: 'Music Video 3' },
-            { id: 4,  source: 'youtube', category: 'music-videos', videoId: 'qf6Q9xSKTf0', title: 'Music Video 4' },
-            { id: 5,  source: 'youtube', category: 'music-videos', videoId: 'OzLfhPiSyU0', title: 'Music Video 5' },
-            { id: 6,  source: 'youtube', category: 'music-videos', videoId: 'JhegU1T3OfA', title: 'Music Video 6' },
-            { id: 7,  source: 'youtube', category: 'music-videos', videoId: 'lhx_29DeHsA', title: 'Music Video 7' },
+            { id: 1,  source: 'youtube', category: 'music-videos', videoId: 'UO853tdpiK0', title: 'Παυλίνα Βουλγαράκη - Μπορείς ακόμα' },
+            { id: 2,  source: 'youtube', category: 'music-videos', videoId: 'GgR1RQFVSO4', title: 'Παυλίνα Βουλγαράκη - Ποτέ και πουθενά' },
+            { id: 3,  source: 'youtube', category: 'music-videos', videoId: '5G6uiwikQ_A', title: 'Dark Mc x Fuji Latifudia' },
+            { id: 4,  source: 'youtube', category: 'music-videos', videoId: 'qf6Q9xSKTf0', title: 'Fuji Latifudia - Kyr astunome' },
+            { id: 5,  source: 'youtube', category: 'music-videos', videoId: 'OzLfhPiSyU0', title: 'Black Vybez S.O.S' },
+            { id: 6,  source: 'youtube', category: 'music-videos', videoId: 'JhegU1T3OfA', title: 'Black Vybez x Fuji Latifudia - Selini' },
+            { id: 7,  source: 'youtube', category: 'music-videos', videoId: 'lhx_29DeHsA', title: 'Black vybez x Michalis Megaloudis - Me miras cantando' },
             
             // Commercial Videos
-            { id: 8,  source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@lospampas.ath/video/7184438128722152710', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image04.jpg?v=375f5d5d', title: 'Commercial Video 1' },
-            { id: 9,  source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@lospampas.ath/video/7070077247012605190', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image06.jpg?v=375f5d5d', title: 'Commercial Video 2' },
-            { id: 10, source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@kolokithacocktailrooom/video/7507256646784109846', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image05.jpg?v=375f5d5d', title: 'Commercial Video 3' },
-            { id: 11, source: 'instagram', category: 'commercial', videoUrl: 'https://www.instagram.com/p/DJ6kDKNK-Vx/', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image07.jpg?v=375f5d5d', title: 'Commercial Video 4' },
-            { id: 12, source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@elvhx/video/7315325047663594785', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image08.jpg?v=375f5d5d', title: 'Commercial Video 5' },
-            { id: 13, source: 'youtube',   category: 'commercial', videoId: 'kqytCJjPf7I',      title: 'Commercial Video 6' },
-            { id: 14, source: 'youtube',   category: 'commercial', videoId: 'Z7_99FQpOUs',      title: 'Commercial Video 7' },
+            { id: 8,  source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@lospampas.ath/video/7184438128722152710', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image04.jpg?v=375f5d5d', title: 'Los Pampas Video 1' },
+            { id: 9,  source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@lospampas.ath/video/7070077247012605190', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image06.jpg?v=375f5d5d', title: 'Los Pampas Video 2' },
+            { id: 10, source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@kolokithacocktailrooom/video/7507256646784109846', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image05.jpg?v=375f5d5d', title: 'KoloKytha anniversary' },
+            { id: 11, source: 'instagram', category: 'commercial', videoUrl: 'https://www.instagram.com/p/DJ6kDKNK-Vx/', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image07.jpg?v=375f5d5d', title: 'Kolokytha video 2' },
+            { id: 12, source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@elvhx/video/7315325047663594785', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image08.jpg?v=375f5d5d', title: 'elvhx promo' },
+            { id: 13, source: 'youtube',   category: 'commercial', videoId: 'kqytCJjPf7I',      title: 'elvhx commercial 1' },
+            { id: 14, source: 'youtube',   category: 'commercial', videoId: 'Z7_99FQpOUs',      title: 'elvhx commercial 2' },
 
             // Mix/Master
-            { id: 15, source: 'youtube', category: 'mix-master', videoId: 'EyOnynqER08', title: 'Mix/Master 1' },
-            { id: 16, source: 'youtube', category: 'mix-master', videoId: 'JhegU1T3OfA', title: 'Mix/Master 2' },
-            { id: 17, source: 'youtube', category: 'mix-master', videoId: 'PXDuXEhgWpA', title: 'Mix/Master 3' },
-            { id: 18, source: 'youtube', category: 'mix-master', videoId: 'GaAxoHlUy3A', title: 'Mix/Master 4' },
-            { id: 19, source: 'youtube', category: 'mix-master', videoId: 'IlJQMKf4TH0', title: 'Mix/Master 5' },
+            { id: 15, source: 'youtube', category: 'mix-master', videoId: 'EyOnynqER08', title: 'Mix/Master Sample 1' },
+            { id: 16, source: 'youtube', category: 'mix-master', videoId: 'JhegU1T3OfA', title: 'Mix/Master Sample 2' },
+            { id: 17, source: 'youtube', category: 'mix-master', videoId: 'PXDuXEhgWpA', title: 'Mix/Master Sample 3' },
+            { id: 18, source: 'youtube', category: 'mix-master', videoId: 'GaAxoHlUy3A', title: 'Mix/Master Sample 4' },
+            { id: 19, source: 'youtube', category: 'mix-master', videoId: 'IlJQMKf4TH0', title: 'Mix/Master Sample 5' },
 
             // Music Production
-            { id: 20, source: 'youtube', category: 'production', videoId: 'xRuzgLbnCJI', title: 'Music Production 1' },
-            { id: 21, source: 'youtube', category: 'production', videoId: 'FyHyTIgrh7o', title: 'Music Production 2' },
-            { id: 22, source: 'youtube', category: 'production', videoId: 'Uqg8IDT3Ekc', title: 'Music Production 3' },
-            { id: 23, source: 'youtube', category: 'production', videoId: 'OzLfhPiSyU0', title: 'Music Production 4' },
-            { id: 24, source: 'youtube', category: 'production', videoId: 'hxKwxVAzodE', title: 'Music Production 5' },
-            { id: 25, source: 'youtube', category: 'production', videoId: '6EjFwqRDLWc', title: 'Music Production 6' },
-            { id: 26, source: 'youtube', category: 'production', videoId: '8t1iNPkiG1c', title: 'Music Production 7' },
-            { id: 27, source: 'youtube', category: 'production', videoId: 'GkjO_zmnCvQ', title: 'Music Production 8' },
-            { id: 28, source: 'youtube', category: 'production', videoId: '7CS621vdeUo', title: 'Music Production 9' },
-            { id: 29, source: 'youtube', category: 'production', videoId: 'upysqHDCGRE', title: 'Music Production 10' },
+            { id: 20, source: 'youtube', category: 'production', videoId: 'xRuzgLbnCJI', title: 'Shadows & Silence' },
+            { id: 21, source: 'youtube', category: 'production', videoId: 'FyHyTIgrh7o', title: 'The Fall Of the Kingdom' },
+            { id: 22, source: 'youtube', category: 'production', videoId: 'Uqg8IDT3Ekc', title: 'Manos Del Mago - Anapnoi' },
+            { id: 23, source: 'youtube', category: 'production', videoId: 'OzLfhPiSyU0', title: 'Black Vybez - S.O.S' },
+            { id: 24, source: 'youtube', category: 'production', videoId: 'hxKwxVAzodE', title: 'Fuji Latifudia - Staxtopouta' },
+            { id: 25, source: 'youtube', category: 'production', videoId: '6EjFwqRDLWc', title: 'Black Vybez - Εγώ και εσύ' },
+            { id: 26, source: 'youtube', category: 'production', videoId: '8t1iNPkiG1c', title: 'Fuji Latifudia x Manos Del Mago x Black Vybez - Ζούμε χωριστά' },
+            { id: 27, source: 'youtube', category: 'production', videoId: 'GkjO_zmnCvQ', title: 'Black Vybez - Mayday' },
+            { id: 28, source: 'youtube', category: 'production', videoId: '7CS621vdeUo', title: 'Manos del mago - Mami' },
+            { id: 29, source: 'youtube', category: 'production', videoId: 'upysqHDCGRE', title: 'Black Vybez x Fuji Latifudia - Nanga' },
 
             // VEO3 AI
-            { id: 30, source: 'instagram', category: 'veo3-ai', videoUrl: 'https://www.instagram.com/reel/DLS-aCYPuZO/', thumbnailUrl: 'https://maintestvision.carrd.co/assets/images/image03.jpg?v=daeffd27', title: 'VEO3 AI 1' },
-            { id: 31, source: 'instagram', category: 'veo3-ai', videoUrl: 'https://www.instagram.com/reel/DLstKzbis7c/', thumbnailUrl: 'https://maintestvision.carrd.co/assets/images/image01.jpg?v=daeffd27', title: 'VEO3 AI 2' },
-            { id: 32, source: 'youtube',   category: 'veo3-ai', videoId: 'NN_gARbWfW8', title: 'VEO3 AI 3' },
-            { id: 33, source: 'youtube',   category: 'veo3-ai', videoId: 'mcejoz018w0', title: 'VEO3 AI 4' },
-            { id: 34, source: 'youtube',   category: 'veo3-ai', videoId: 'U0Js7WNAA2E', title: 'VEO3 AI 5' }
+            { id: 30, source: 'instagram', category: 'veo3-ai', videoUrl: 'https://www.instagram.com/reel/DLS-aCYPuZO/', thumbnailUrl: 'https://maintestvision.carrd.co/assets/images/image03.jpg?v=daeffd27', title: 'VEO3 AI Showcase 1' },
+            { id: 31, source: 'instagram', category: 'veo3-ai', videoUrl: 'https://www.instagram.com/reel/DLstKzbis7c/', thumbnailUrl: 'https://maintestvision.carrd.co/assets/images/image01.jpg?v=daeffd27', title: 'VEO3 AI Showcase 2' },
+            { id: 32, source: 'youtube',   category: 'veo3-ai', videoId: 'NN_gARbWfW8', title: 'VEO3 AI Showcase 3' },
+            { id: 33, source: 'youtube',   category: 'veo3-ai', videoId: 'mcejoz018w0', title: 'VEO3 AI Showcase 4' },
+            { id: 34, source: 'youtube',   category: 'veo3-ai', videoId: 'U0Js7WNAA2E', title: 'VEO3 AI Showcase 5' }
         ];
 
         // --- ELEMENTS ---
         const portfolioFilterContainer = document.getElementById('portfolio-filters');
-        const portfolioGrid = document.getElementById('portfolio-grid');
+        const portfolioList = document.getElementById('portfolio-list');
         const modal = document.getElementById('video-modal');
         const modalCloseBtn = document.getElementById('modal-close-btn');
         const toggleBrandsBtn = document.getElementById('toggle-brands-btn');
         const brandsContainer = document.getElementById('brands-container');
-        // Modal content containers
         const youtubePlayerContainer = document.getElementById('youtube-player-container');
         const videoIframe = document.getElementById('video-iframe');
         const externalLinkPreview = document.getElementById('external-link-preview');
@@ -536,49 +538,44 @@
             videoIframe.src = ''; // Stop the YouTube video
         }
 
-        // --- RENDER FUNCTION (NEW LOGIC) ---
+        // --- RENDER FUNCTION ---
         function renderPortfolioItems(filterValue) {
-            if (!portfolioGrid) return;
+            if (!portfolioList) return;
 
-            // 1. Set a fixed height to prevent page jump
-            const gridHeight = portfolioGrid.offsetHeight;
-            portfolioGrid.style.height = `${gridHeight}px`;
-
-            portfolioGrid.classList.add('fading');
+            portfolioList.classList.add('fading');
 
             setTimeout(() => {
-                portfolioGrid.innerHTML = ''; // 2. Clear the grid
+                portfolioList.innerHTML = ''; // Clear the list
                 const filteredItems = portfolioData.filter(item => item.category === filterValue);
 
                 if (filteredItems.length === 0) {
-                    portfolioGrid.innerHTML = `<p style="color: #888;">Δεν υπάρχουν διαθέσιμα έργα για αυτή την κατηγορία.</p>`;
+                    portfolioList.innerHTML = `<p style="color: #888;">Δεν υπάρχουν διαθέσιμα έργα για αυτή την κατηγορία.</p>`;
                 } else {
-                    // 3. Populate with new items
                     filteredItems.forEach(item => {
                         const thumbnailUrl = item.source === 'youtube'
-                            ? `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`
+                            ? `https://i.ytimg.com/vi/${item.videoId}/mqdefault.jpg`
                             : item.thumbnailUrl;
 
                         const itemElement = document.createElement('div');
                         itemElement.className = 'portfolio-item';
-                        itemElement.setAttribute('title', item.title);
                         
                         itemElement.innerHTML = `
-                            <img src="${thumbnailUrl}" alt="${item.title}" loading="lazy">
-                            <div class="overlay">
-                                <i class="fas fa-play-circle"></i>
+                            <div class="portfolio-item-thumbnail">
+                                <img src="${thumbnailUrl}" alt="${item.title}" loading="lazy">
+                                <div class="overlay"><i class="fas fa-play"></i></div>
+                            </div>
+                            <div class="portfolio-item-info">
+                                <h3 class="portfolio-item-title">${item.title}</h3>
                             </div>
                         `;
                         itemElement.addEventListener('click', () => openModal(item));
-                        portfolioGrid.appendChild(itemElement);
+                        portfolioList.appendChild(itemElement);
                     });
                 }
                 
-                // 4. Reset height to auto and fade in
-                portfolioGrid.style.height = ''; 
-                portfolioGrid.classList.remove('fading');
+                portfolioList.classList.remove('fading');
 
-            }, 250); // This duration should match the CSS transition
+            }, 200);
         }
 
         // --- EVENT LISTENERS ---
@@ -586,8 +583,8 @@
             const filterButtons = portfolioFilterContainer.querySelectorAll('.filter-btn');
             filterButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevents page jump
-                    if (this.classList.contains('active')) return; // Do nothing if already active
+                    event.preventDefault();
+                    if (this.classList.contains('active')) return;
 
                     const currentActive = portfolioFilterContainer.querySelector('.filter-btn.active');
                     if (currentActive) {
