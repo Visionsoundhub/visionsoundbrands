@@ -194,8 +194,7 @@
             gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
-            min-height: 250px; /* Give it a minimum height to avoid collapsing during transition */
-            transition: opacity 0.2s ease-in-out;
+            transition: opacity 0.2s ease-in-out, height 0.3s ease-in-out;
         }
         .portfolio-grid.fading {
             opacity: 0;
@@ -364,16 +363,6 @@
         .btn-external .fab {
             font-size: 1.5rem;
         }
-
-        /* --- Mobile Adjustments --- */
-        @media (max-width: 768px) {
-            .portfolio-section {
-                min-height: 110vh; /* Increased height on mobile */
-            }
-            .brands-section {
-                padding: 1.5rem 1rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -540,15 +529,20 @@
         function renderPortfolioItems(filterValue) {
             if (!portfolioGrid) return;
 
+            // 1. Set a fixed height to prevent page jump
+            const gridHeight = portfolioGrid.offsetHeight;
+            portfolioGrid.style.height = `${gridHeight}px`;
+
             portfolioGrid.classList.add('fading');
 
             setTimeout(() => {
-                portfolioGrid.innerHTML = ''; // Clear the grid
+                portfolioGrid.innerHTML = ''; // 2. Clear the grid
                 const filteredItems = portfolioData.filter(item => item.category === filterValue);
 
                 if (filteredItems.length === 0) {
                     portfolioGrid.innerHTML = `<p style="color: #888;">Δεν υπάρχουν διαθέσιμα έργα για αυτή την κατηγορία.</p>`;
                 } else {
+                    // 3. Populate with new items
                     filteredItems.forEach(item => {
                         const thumbnailUrl = item.source === 'youtube'
                             ? `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`
@@ -568,8 +562,12 @@
                         portfolioGrid.appendChild(itemElement);
                     });
                 }
+                
+                // 4. Reset height to auto and fade in
+                portfolioGrid.style.height = ''; 
                 portfolioGrid.classList.remove('fading');
-            }, 200); // This duration should match the CSS transition
+
+            }, 250); // This duration should match the CSS transition
         }
 
         // --- EVENT LISTENERS ---
@@ -578,6 +576,8 @@
             filterButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
                     event.preventDefault(); // Prevents page jump
+                    if (this.classList.contains('active')) return; // Do nothing if already active
+
                     const currentActive = portfolioFilterContainer.querySelector('.filter-btn.active');
                     if (currentActive) {
                         currentActive.classList.remove('active');
