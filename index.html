@@ -146,6 +146,7 @@
             padding: 3rem 1rem;
             text-align: center;
             border-top: 1px solid #2a2a3a;
+            min-height: 200vh; /* Generous height to prevent nested scrollbars */
         }
 
         /* --- Filter Buttons Style --- */
@@ -362,6 +363,16 @@
         }
         .btn-external .fab {
             font-size: 1.5rem;
+        }
+
+        /* --- Mobile Adjustments --- */
+        @media (max-width: 768px) {
+            .brands-container {
+                gap: 1rem; /* Reduce gap on mobile */
+            }
+            .brand-item {
+                width: 40%; /* Two items per row */
+            }
         }
     </style>
 </head>
