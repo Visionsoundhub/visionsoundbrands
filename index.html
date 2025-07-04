@@ -1,0 +1,59 @@
+<!-- Portfolio Page Start -->
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s ease forwards;
+  }
+  .fade-delay-1 { animation-delay: 0.2s; }
+  .fade-delay-2 { animation-delay: 0.4s; }
+  .fade-delay-3 { animation-delay: 0.6s; }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hover-glow {
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 transparent;
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 30px rgba(130, 180, 255, 0.45),
+                0 0 15px rgba(200, 255, 200, 0.25),
+                0 0 10px rgba(255, 220, 120, 0.2);
+    filter: brightness(1.08);
+  }
+
+  .hover-glow-text:hover {
+    color: #fff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+  .brand-glow:nth-child(1):hover { box-shadow: 0 0 30px rgba(130, 180, 255, 0.5); }
+  .brand-glow:nth-child(2):hover { box-shadow: 0 0 30px rgba(120, 255, 200, 0.5); }
+  .brand-glow:nth-child(3):hover { box-shadow: 0 0 30px rgba(255, 230, 150, 0.5); }
+  .brand-glow:nth-child(4):hover { box-shadow: 0 0 30px rgba(180, 130, 255, 0.5); }
+  .brand-glow:nth-child(5):hover { box-shadow: 0 0 30px rgba(100, 255, 200, 0.5); }
+  .brand-glow:nth-child(6):hover { box-shadow: 0 0 30px rgba(255, 180, 100, 0.5); }
+  .brand-glow:nth-child(7):hover { box-shadow: 0 0 30px rgba(150, 220, 255, 0.5); }
+  .brand-glow:nth-child(8):hover { box-shadow: 0 0 30px rgba(200, 255, 150, 0.5); }
+</style>
+
+<section style="background-color: #0b0b1a; color: #eee; font-family: 'Inter', sans-serif; padding: 0rem 1rem 1.5rem 1rem; text-align: center;">
+  <h2 class="hover-glow-text" style="font-size: 1.8rem; font-weight: 700; color: #ccc; margin-bottom: 1rem;">Brands που μας εμπιστεύτηκαν</h2>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; max-width: 1000px; margin: 0 auto;">
+    <!-- Εδώ μπορείς να αντικαταστήσεις με πραγματικά logos -->
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/9ba71560.jpg?v=1894d6d4" alt="Landing Minds Records" style="height: 60px;"><br><small style="color: #888;">Landing Minds Records</small></div>
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a4042465.png?v=1894d6d4" alt="Panik Records" style="height: 60px;"><br><small style="color: #888;">Panik Records</small></div>
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a5197dcf.jpg?v=1894d6d4" alt="On music" style="height: 60px;"><br><small style="color: #888;">On music</small></div>
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/dbd2a1fd.jpg?v=1894d6d4" alt="DVC Studios" style="height: 60px;"><br><small style="color: #888;">DVC Studios</small></div>
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a46276dc.jpg?v=1894d6d4" alt="Manos Del Mago" style="height: 60px;"><br><small style="color: #888;">Manos Del Mago</small></div>
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/70bd5911.jpg?v=1894d6d4" alt="elvhx" style="height: 60px;"><br><small style="color: #888;">elvhx</small></div>
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/96ec1d9b.jpg?v=1894d6d4" alt="Los Pampas" style="height: 60px;"><br><small style="color: #888;">Los Pampas</small></div>
+    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/8b1b32cc.jpg?v=1894d6d4" alt="Kokokytha Cocktail Bar" style="height: 60px;"><br><small style="color: #888;">Kokokytha Cocktail Bar</small></div>
+  </div>
+</section>
+<!-- Portfolio Page End -->
