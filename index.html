@@ -1,59 +1,550 @@
-<!-- Portfolio Page Start -->
-<style>
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1s ease forwards;
-  }
-  .fade-delay-1 { animation-delay: 0.2s; }
-  .fade-delay-2 { animation-delay: 0.4s; }
-  .fade-delay-3 { animation-delay: 0.6s; }
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Segoe+UI:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+    <style>
+        /* --- General Body --- */
+        body {
+            background-color: #0b0b1a;
+            color: #eee;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body.modal-open {
+            overflow: hidden;
+        }
 
-  .hover-glow {
-    transition: all 0.3s ease;
-    box-shadow: 0 0 0 transparent;
-  }
-  .hover-glow:hover {
-    box-shadow: 0 0 30px rgba(130, 180, 255, 0.45),
-                0 0 15px rgba(200, 255, 200, 0.25),
-                0 0 10px rgba(255, 220, 120, 0.2);
-    filter: brightness(1.08);
-  }
+        /* --- Main Navigation Styles --- */
+        .main-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            white-space: nowrap;
+            padding: 0.7rem 1.6rem;
+            border-radius: 999px;
+            border: 1px solid #555;
+            cursor: pointer;
+            color: #ddd;
+            background: linear-gradient(145deg, #2c2c3a, #1a1a2a);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #3c3c4a, #2a2a3a);
+            border-color: #c5c5ff;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4), 
+                        inset 0 1px 1px rgba(255,255,255,0.1),
+                        0 0 15px rgba(160, 176, 255, 0.4),
+                        0 0 20px rgba(126, 87, 194, 0.3);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
 
-  .hover-glow-text:hover {
-    color: #fff;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-  }
-  .brand-glow:nth-child(1):hover { box-shadow: 0 0 30px rgba(130, 180, 255, 0.5); }
-  .brand-glow:nth-child(2):hover { box-shadow: 0 0 30px rgba(120, 255, 200, 0.5); }
-  .brand-glow:nth-child(3):hover { box-shadow: 0 0 30px rgba(255, 230, 150, 0.5); }
-  .brand-glow:nth-child(4):hover { box-shadow: 0 0 30px rgba(180, 130, 255, 0.5); }
-  .brand-glow:nth-child(5):hover { box-shadow: 0 0 30px rgba(100, 255, 200, 0.5); }
-  .brand-glow:nth-child(6):hover { box-shadow: 0 0 30px rgba(255, 180, 100, 0.5); }
-  .brand-glow:nth-child(7):hover { box-shadow: 0 0 30px rgba(150, 220, 255, 0.5); }
-  .brand-glow:nth-child(8):hover { box-shadow: 0 0 30px rgba(200, 255, 150, 0.5); }
-</style>
 
-<section style="background-color: #0b0b1a; color: #eee; font-family: 'Inter', sans-serif; padding: 0rem 1rem 1.5rem 1rem; text-align: center;">
-  <h2 class="hover-glow-text" style="font-size: 1.8rem; font-weight: 700; color: #ccc; margin-bottom: 1rem;">Brands που μας εμπιστεύτηκαν</h2>
-  <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; max-width: 1000px; margin: 0 auto;">
-    <!-- Εδώ μπορείς να αντικαταστήσεις με πραγματικά logos -->
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/9ba71560.jpg?v=1894d6d4" alt="Landing Minds Records" style="height: 60px;"><br><small style="color: #888;">Landing Minds Records</small></div>
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a4042465.png?v=1894d6d4" alt="Panik Records" style="height: 60px;"><br><small style="color: #888;">Panik Records</small></div>
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a5197dcf.jpg?v=1894d6d4" alt="On music" style="height: 60px;"><br><small style="color: #888;">On music</small></div>
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/dbd2a1fd.jpg?v=1894d6d4" alt="DVC Studios" style="height: 60px;"><br><small style="color: #888;">DVC Studios</small></div>
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a46276dc.jpg?v=1894d6d4" alt="Manos Del Mago" style="height: 60px;"><br><small style="color: #888;">Manos Del Mago</small></div>
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/70bd5911.jpg?v=1894d6d4" alt="elvhx" style="height: 60px;"><br><small style="color: #888;">elvhx</small></div>
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/96ec1d9b.jpg?v=1894d6d4" alt="Los Pampas" style="height: 60px;"><br><small style="color: #888;">Los Pampas</small></div>
-    <div class="hover-glow brand-glow"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/8b1b32cc.jpg?v=1894d6d4" alt="Kokokytha Cocktail Bar" style="height: 60px;"><br><small style="color: #888;">Kokokytha Cocktail Bar</small></div>
-  </div>
+        /* --- Brands Section Styles --- */
+        .brands-section {
+            background-color: #0b0b1a;
+            padding: 2rem 1rem 1.5rem 1rem;
+            text-align: center;
+            border-top: 1px solid #2a2a3a;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ccc;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        .section-title:hover {
+            color: #fff;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+
+        .brands-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .brand-item {
+            transition: all 0.3s ease;
+        }
+        .brand-item:hover {
+            transform: translateY(-5px);
+        }
+        .brand-item img {
+            height: 60px;
+            display: block;
+        }
+        .brand-item small {
+            color: #888;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        /* --- Portfolio Section Styles --- */
+        .portfolio-section {
+            background-color: #0f0f1f;
+            padding: 3rem 1rem;
+            text-align: center;
+            border-top: 1px solid #2a2a3a;
+            min-height: 50vh;
+        }
+
+        /* --- Filter Buttons Style --- */
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem; 
+        }
+
+        .filter-btn {
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            padding: 0.6rem 1.2rem;
+            border-radius: 999px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            color: #e0e0e0;
+            background: linear-gradient(145deg, #4a4a5a, #2a2a3a);
+            transition: all 0.2s ease-in-out;
+            box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05), 0 3px 6px rgba(0,0,0,0.4);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+            background: linear-gradient(145deg, #5a5a6a, #3a3a4a);
+        }
+
+        .filter-btn.active {
+            border-color: #a0b0ff;
+            color: #fff;
+            background: linear-gradient(145deg, #7e57c2, #42a5f5);
+            box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2), 0 0 15px rgba(126, 87, 194, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* --- Portfolio Grid Styles --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .portfolio-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(126, 87, 194, 0.4);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: filter 0.3s ease;
+        }
+        .portfolio-item:hover img {
+            filter: brightness(0.6);
+        }
+
+        .portfolio-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+        .portfolio-item .overlay i {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        /* --- Video Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 960px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+        }
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+        
+        /* Container for YouTube video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Container for TikTok/Instagram preview */
+        .external-link-container {
+            position: relative; /* Make it a positioning context */
+            line-height: 0; /* Removes extra space below the image */
+        }
+        .external-link-container::after { /* The new gradient overlay */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            pointer-events: none; /* Allows clicks to go through to the button */
+            z-index: 1;
+            border-radius: 0 0 8px 8px;
+        }
+        .external-link-container img {
+            display: block;
+            width: 100%; /* Make it responsive inside its container */
+            max-width: 450px; /* **THE FIX**: Limit max width to prevent pixelation */
+            margin-left: auto; /* Center the image */
+            margin-right: auto; /* Center the image */
+            max-height: 80vh;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+        .btn-external {
+            position: absolute; /* Position it over the container */
+            bottom: 2rem; /* Distance from the bottom */
+            left: 50%; /* Center it horizontally */
+            transform: translateX(-50%); /* Fine-tune centering */
+            z-index: 2; /* Ensure it's on top of the gradient */
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            background: linear-gradient(145deg, #7e57c2, #42a5f5);
+            color: white;
+            text-decoration: none;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .btn-external:hover {
+            transform: scale(1.05) translateX(-47.5%); /* Adjust transform on hover */
+            box-shadow: 0 0 20px rgba(126, 87, 194, 0.7);
+        }
+        .btn-external .fab {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-navigation">
+    <a href="https://visionsoundhub.gr/" class="nav-btn" target="_blank" rel="noopener noreferrer">Home</a>
+    <a href="https://pricing.visionsoundhub.gr/" class="nav-btn" target="_blank" rel="noopener noreferrer">Pricing</a>
+    <a href="https://vybezmadethis.visionsoundhub.gr/" class="nav-btn" target="_blank" rel="noopener noreferrer">Beats</a>
+    <a href="https://pricing.visionsoundhub.gr/#zairok" class="nav-btn" target="_blank" rel="noopener noreferrer">Zairok (Manga)</a>
+</header>
+
+<!-- Brands Section -->
+<section class="brands-section">
+    <h2 class="section-title">Brands που μας εμπιστεύτηκαν</h2>
+    <div class="brands-container">
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/9ba71560.jpg?v=1894d6d4" alt="Landing Minds Records"><small>Landing Minds Records</small></div>
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a4042465.png?v=1894d6d4" alt="Panik Records"><small>Panik Records</small></div>
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a5197dcf.jpg?v=1894d6d4" alt="On music"><small>On music</small></div>
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/dbd2a1fd.jpg?v=1894d6d4" alt="DVC Studios"><small>DVC Studios</small></div>
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/a46276dc.jpg?v=1894d6d4" alt="Manos Del Mago"><small>Manos Del Mago</small></div>
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/70bd5911.jpg?v=1894d6d4" alt="elvhx"><small>elvhx</small></div>
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/96ec1d9b.jpg?v=1894d6d4" alt="Los Pampas"><small>Los Pampas</small></div>
+        <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/8b1b32cc.jpg?v=1894d6d4" alt="Kokokytha Cocktail Bar"><small>Kokokytha Cocktail Bar</small></div>
+    </div>
 </section>
-<!-- Portfolio Page End -->
+
+<!-- Portfolio Section -->
+<section class="portfolio-section">
+    <h2 class="section-title">Portfolio</h2>
+    
+    <div class="filter-controls" id="portfolio-filters">
+        <button class="filter-btn active" data-filter="music-videos">Music Videos</button>
+        <button class="filter-btn" data-filter="commercial">Commercial Videos</button>
+        <button class="filter-btn" data-filter="mix-master">Mix/Master</button>
+        <button class="filter-btn" data-filter="production">Music Production</button>
+        <button class="filter-btn" data-filter="veo3-ai">VEO3 AI</button>
+    </div>
+
+    <div class="portfolio-grid" id="portfolio-grid">
+        <!-- Portfolio items will be dynamically added here by JavaScript -->
+    </div>
+</section>
+
+<!-- Video Modal -->
+<div id="video-modal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="modal-close" id="modal-close-btn">&times;</span>
+        <!-- YouTube Player -->
+        <div class="video-container" id="youtube-player-container">
+            <iframe id="video-iframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <!-- External Link Preview -->
+        <div class="external-link-container" id="external-link-preview">
+            <img id="external-preview-image" src="" alt="Video Preview">
+            <a id="external-link-btn" href="#" target="_blank" class="btn-external">
+                <i id="external-link-icon" class="fab"></i>
+                <span id="external-link-text"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- DATA ---
+        const portfolioData = [
+            // Music Videos
+            { id: 1,  source: 'youtube', category: 'music-videos', videoId: 'UO853tdpiK0', title: 'Music Video 1' },
+            { id: 2,  source: 'youtube', category: 'music-videos', videoId: 'GgR1RQFVSO4', title: 'Music Video 2' },
+            { id: 3,  source: 'youtube', category: 'music-videos', videoId: '5G6uiwikQ_A', title: 'Music Video 3' },
+            { id: 4,  source: 'youtube', category: 'music-videos', videoId: 'qf6Q9xSKTf0', title: 'Music Video 4' },
+            { id: 5,  source: 'youtube', category: 'music-videos', videoId: 'OzLfhPiSyU0', title: 'Music Video 5' },
+            { id: 6,  source: 'youtube', category: 'music-videos', videoId: 'JhegU1T3OfA', title: 'Music Video 6' },
+            { id: 7,  source: 'youtube', category: 'music-videos', videoId: 'lhx_29DeHsA', title: 'Music Video 7' },
+            
+            // Commercial Videos
+            { id: 8,  source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@lospampas.ath/video/7184438128722152710', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image04.jpg?v=375f5d5d', title: 'Commercial Video 1' },
+            { id: 9,  source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@lospampas.ath/video/7070077247012605190', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image06.jpg?v=375f5d5d', title: 'Commercial Video 2' },
+            { id: 10, source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@kolokithacocktailrooom/video/7507256646784109846', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image05.jpg?v=375f5d5d', title: 'Commercial Video 3' },
+            { id: 11, source: 'instagram', category: 'commercial', videoUrl: 'https://www.instagram.com/p/DJ6kDKNK-Vx/', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image07.jpg?v=375f5d5d', title: 'Commercial Video 4' },
+            { id: 12, source: 'tiktok',    category: 'commercial', videoUrl: 'https://www.tiktok.com/@elvhx/video/7315325047663594785', thumbnailUrl: 'https://portfolio.visionsoundhub.gr/assets/images/image08.jpg?v=375f5d5d', title: 'Commercial Video 5' },
+            { id: 13, source: 'youtube',   category: 'commercial', videoId: 'kqytCJjPf7I',      title: 'Commercial Video 6' },
+            { id: 14, source: 'youtube',   category: 'commercial', videoId: 'Z7_99FQpOUs',      title: 'Commercial Video 7' },
+
+            // Mix/Master
+            { id: 15, source: 'youtube', category: 'mix-master', videoId: 'EyOnynqER08', title: 'Mix/Master 1' },
+            { id: 16, source: 'youtube', category: 'mix-master', videoId: 'JhegU1T3OfA', title: 'Mix/Master 2' },
+            { id: 17, source: 'youtube', category: 'mix-master', videoId: 'PXDuXEhgWpA', title: 'Mix/Master 3' },
+            { id: 18, source: 'youtube', category: 'mix-master', videoId: 'GaAxoHlUy3A', title: 'Mix/Master 4' },
+            { id: 19, source: 'youtube', category: 'mix-master', videoId: 'IlJQMKf4TH0', title: 'Mix/Master 5' },
+
+            // Music Production
+            { id: 20, source: 'youtube', category: 'production', videoId: 'xRuzgLbnCJI', title: 'Music Production 1' },
+            { id: 21, source: 'youtube', category: 'production', videoId: 'FyHyTIgrh7o', title: 'Music Production 2' },
+            { id: 22, source: 'youtube', category: 'production', videoId: 'Uqg8IDT3Ekc', title: 'Music Production 3' },
+            { id: 23, source: 'youtube', category: 'production', videoId: 'OzLfhPiSyU0', title: 'Music Production 4' },
+            { id: 24, source: 'youtube', category: 'production', videoId: 'hxKwxVAzodE', title: 'Music Production 5' },
+            { id: 25, source: 'youtube', category: 'production', videoId: '6EjFwqRDLWc', title: 'Music Production 6' },
+            { id: 26, source: 'youtube', category: 'production', videoId: '8t1iNPkiG1c', title: 'Music Production 7' },
+            { id: 27, source: 'youtube', category: 'production', videoId: 'GkjO_zmnCvQ', title: 'Music Production 8' },
+            { id: 28, source: 'youtube', category: 'production', videoId: '7CS621vdeUo', title: 'Music Production 9' },
+            { id: 29, source: 'youtube', category: 'production', videoId: 'upysqHDCGRE', title: 'Music Production 10' },
+
+            // VEO3 AI
+            { id: 30, source: 'instagram', category: 'veo3-ai', videoUrl: 'https://www.instagram.com/reel/DLS-aCYPuZO/', thumbnailUrl: 'https://maintestvision.carrd.co/assets/images/image03.jpg?v=daeffd27', title: 'VEO3 AI 1' },
+            { id: 31, source: 'instagram', category: 'veo3-ai', videoUrl: 'https://www.instagram.com/reel/DLstKzbis7c/', thumbnailUrl: 'https://maintestvision.carrd.co/assets/images/image01.jpg?v=daeffd27', title: 'VEO3 AI 2' },
+            { id: 32, source: 'youtube',   category: 'veo3-ai', videoId: 'NN_gARbWfW8', title: 'VEO3 AI 3' },
+            { id: 33, source: 'youtube',   category: 'veo3-ai', videoId: 'mcejoz018w0', title: 'VEO3 AI 4' },
+            { id: 34, source: 'youtube',   category: 'veo3-ai', videoId: 'U0Js7WNAA2E', title: 'VEO3 AI 5' }
+        ];
+
+        // --- ELEMENTS ---
+        const portfolioFilterContainer = document.getElementById('portfolio-filters');
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const modal = document.getElementById('video-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        // Modal content containers
+        const youtubePlayerContainer = document.getElementById('youtube-player-container');
+        const videoIframe = document.getElementById('video-iframe');
+        const externalLinkPreview = document.getElementById('external-link-preview');
+        const externalPreviewImage = document.getElementById('external-preview-image');
+        const externalLinkBtn = document.getElementById('external-link-btn');
+        const externalLinkIcon = document.getElementById('external-link-icon');
+        const externalLinkText = document.getElementById('external-link-text');
+
+        // --- MODAL FUNCTIONS ---
+        function openModal(item) {
+            if (item.source === 'youtube') {
+                youtubePlayerContainer.style.display = 'block';
+                externalLinkPreview.style.display = 'none';
+                videoIframe.src = `https://www.youtube.com/embed/${item.videoId}?autoplay=1&rel=0`;
+            } else {
+                youtubePlayerContainer.style.display = 'none';
+                externalLinkPreview.style.display = 'block';
+                externalPreviewImage.src = item.thumbnailUrl;
+                externalLinkBtn.href = item.videoUrl;
+
+                if (item.source === 'tiktok') {
+                    externalLinkIcon.className = 'fab fa-tiktok';
+                    externalLinkText.textContent = 'Δες το στο TikTok';
+                } else if (item.source === 'instagram') {
+                    externalLinkIcon.className = 'fab fa-instagram';
+                    externalLinkText.textContent = 'Δες το στο Instagram';
+                }
+            }
+            modal.classList.add('visible');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModal() {
+            modal.classList.remove('visible');
+            document.body.classList.remove('modal-open');
+            videoIframe.src = ''; // Stop the YouTube video
+        }
+
+        // --- RENDER FUNCTION ---
+        function renderPortfolioItems(filterValue) {
+            if (!portfolioGrid) return;
+            
+            portfolioGrid.innerHTML = '';
+            const filteredItems = portfolioData.filter(item => item.category === filterValue);
+
+            if (filteredItems.length === 0) {
+                portfolioGrid.innerHTML = `<p style="color: #888;">Δεν υπάρχουν διαθέσιμα έργα για αυτή την κατηγορία.</p>`;
+                return;
+            }
+
+            filteredItems.forEach(item => {
+                // Automatically generate thumbnail URL for YouTube videos
+                const thumbnailUrl = item.source === 'youtube'
+                    ? `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`
+                    : item.thumbnailUrl;
+
+                const itemElement = document.createElement('div');
+                itemElement.className = 'portfolio-item';
+                itemElement.setAttribute('title', item.title);
+                
+                itemElement.innerHTML = `
+                    <img src="${thumbnailUrl}" alt="${item.title}" loading="lazy">
+                    <div class="overlay">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                `;
+                itemElement.addEventListener('click', () => openModal(item));
+                portfolioGrid.appendChild(itemElement);
+            });
+        }
+
+        // --- EVENT LISTENERS ---
+        if (portfolioFilterContainer) {
+            const filterButtons = portfolioFilterContainer.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentActive = portfolioFilterContainer.querySelector('.filter-btn.active');
+                    if (currentActive) {
+                        currentActive.classList.remove('active');
+                    }
+                    this.classList.add('active');
+                    
+                    const filterValue = this.dataset.filter;
+                    renderPortfolioItems(filterValue);
+                });
+            });
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- INITIALIZATION ---
+        const initialActiveButton = portfolioFilterContainer.querySelector('.filter-btn.active');
+        if (initialActiveButton) {
+            renderPortfolioItems(initialActiveButton.dataset.filter);
+        }
+    });
+</script>
+
+</body>
+</html>
