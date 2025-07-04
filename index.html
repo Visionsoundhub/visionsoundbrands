@@ -146,7 +146,6 @@
             padding: 3rem 1rem;
             text-align: center;
             border-top: 1px solid #2a2a3a;
-            min-height: 200vh; /* Generous height to prevent nested scrollbars */
         }
 
         /* --- Filter Buttons Style --- */
@@ -209,6 +208,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            aspect-ratio: 1 / 1; /* THE FIX: Ensures a square container */
         }
         
         .portfolio-item:hover {
