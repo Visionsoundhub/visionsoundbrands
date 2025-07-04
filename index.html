@@ -92,18 +92,28 @@
 
         .brand-item {
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 150px; /* Give a fixed width for better alignment */
         }
         .brand-item:hover {
             transform: translateY(-5px);
         }
+        .brand-item:hover img {
+            box-shadow: 0 0 25px rgba(130, 180, 255, 0.4);
+            filter: brightness(1.08);
+        }
         .brand-item img {
             height: 60px;
-            display: block;
+            border-radius: 4px; /* Optional: slightly rounded corners for logos */
+            transition: all 0.3s ease;
         }
         .brand-item small {
             color: #888;
             display: block;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
         }
 
         /* --- Portfolio Section Styles --- */
@@ -112,7 +122,6 @@
             padding: 3rem 1rem;
             text-align: center;
             border-top: 1px solid #2a2a3a;
-            min-height: 50vh;
         }
 
         /* --- Filter Buttons Style --- */
@@ -161,6 +170,11 @@
             gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
+            min-height: 250px; /* Give it a minimum height to avoid collapsing during transition */
+            transition: opacity 0.2s ease-in-out;
+        }
+        .portfolio-grid.fading {
+            opacity: 0;
         }
 
         .portfolio-item {
@@ -172,6 +186,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
+        
         .portfolio-item:hover {
             transform: scale(1.05);
             box-shadow: 0 12px 40px rgba(126, 87, 194, 0.4);
@@ -292,7 +307,7 @@
         .external-link-container img {
             display: block;
             width: 100%; /* Make it responsive inside its container */
-            max-width: 450px; /* **THE FIX**: Limit max width to prevent pixelation */
+            max-width: 450px; /* Limit max width to prevent pixelation */
             margin-left: auto; /* Center the image */
             margin-right: auto; /* Center the image */
             max-height: 80vh;
@@ -325,6 +340,17 @@
         .btn-external .fab {
             font-size: 1.5rem;
         }
+
+        /* --- Mobile Adjustments --- */
+        @media (max-width: 768px) {
+            .portfolio-section {
+                min-height: 100vh; /* Increased height on mobile */
+                padding: 2rem 1rem; /* Adjusted padding for smaller screens */
+            }
+            .brands-section {
+                padding: 1.5rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -348,6 +374,7 @@
         <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/70bd5911.jpg?v=1894d6d4" alt="elvhx"><small>elvhx</small></div>
         <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/96ec1d9b.jpg?v=1894d6d4" alt="Los Pampas"><small>Los Pampas</small></div>
         <div class="brand-item"><img src="https://portfolio.visionsoundhub.gr/assets/images/gallery01/8b1b32cc.jpg?v=1894d6d4" alt="Kokokytha Cocktail Bar"><small>Kokokytha Cocktail Bar</small></div>
+        <div class="brand-item"><img src="https://vybezmadethitest.carrd.co/assets/images/image01.jpg?v=99bc8b72" alt="First Life Ambulance"><small>First Life Ambulance</small></div>
     </div>
 </section>
 
@@ -481,44 +508,48 @@
             videoIframe.src = ''; // Stop the YouTube video
         }
 
-        // --- RENDER FUNCTION ---
+        // --- RENDER FUNCTION (NEW LOGIC) ---
         function renderPortfolioItems(filterValue) {
             if (!portfolioGrid) return;
-            
-            portfolioGrid.innerHTML = '';
-            const filteredItems = portfolioData.filter(item => item.category === filterValue);
 
-            if (filteredItems.length === 0) {
-                portfolioGrid.innerHTML = `<p style="color: #888;">Δεν υπάρχουν διαθέσιμα έργα για αυτή την κατηγορία.</p>`;
-                return;
-            }
+            portfolioGrid.classList.add('fading');
 
-            filteredItems.forEach(item => {
-                // Automatically generate thumbnail URL for YouTube videos
-                const thumbnailUrl = item.source === 'youtube'
-                    ? `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`
-                    : item.thumbnailUrl;
+            setTimeout(() => {
+                portfolioGrid.innerHTML = ''; // Clear the grid
+                const filteredItems = portfolioData.filter(item => item.category === filterValue);
 
-                const itemElement = document.createElement('div');
-                itemElement.className = 'portfolio-item';
-                itemElement.setAttribute('title', item.title);
-                
-                itemElement.innerHTML = `
-                    <img src="${thumbnailUrl}" alt="${item.title}" loading="lazy">
-                    <div class="overlay">
-                        <i class="fas fa-play-circle"></i>
-                    </div>
-                `;
-                itemElement.addEventListener('click', () => openModal(item));
-                portfolioGrid.appendChild(itemElement);
-            });
+                if (filteredItems.length === 0) {
+                    portfolioGrid.innerHTML = `<p style="color: #888;">Δεν υπάρχουν διαθέσιμα έργα για αυτή την κατηγορία.</p>`;
+                } else {
+                    filteredItems.forEach(item => {
+                        const thumbnailUrl = item.source === 'youtube'
+                            ? `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`
+                            : item.thumbnailUrl;
+
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'portfolio-item';
+                        itemElement.setAttribute('title', item.title);
+                        
+                        itemElement.innerHTML = `
+                            <img src="${thumbnailUrl}" alt="${item.title}" loading="lazy">
+                            <div class="overlay">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        `;
+                        itemElement.addEventListener('click', () => openModal(item));
+                        portfolioGrid.appendChild(itemElement);
+                    });
+                }
+                portfolioGrid.classList.remove('fading');
+            }, 200); // This duration should match the CSS transition
         }
 
         // --- EVENT LISTENERS ---
         if (portfolioFilterContainer) {
             const filterButtons = portfolioFilterContainer.querySelectorAll('.filter-btn');
             filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevents page jump
                     const currentActive = portfolioFilterContainer.querySelector('.filter-btn.active');
                     if (currentActive) {
                         currentActive.classList.remove('active');
